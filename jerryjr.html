@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Will You Go on a Date with Me?</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            color: #ff6f61;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            border: 2px solid #ff6f61;
+            border-radius: 15px;
+            background-color: #fff0f5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            background-color: #ff4c4c;
+            transform: scale(1.1);
+        }
+        .heart {
+            font-size: 60px;
+            color: #ff6f61;
+        }
+        .date-details {
+            font-size: 18px;
+            color: #333;
+        }
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .hearts div {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6f61;
+            transform: rotate(45deg);
+            animation: float 5s infinite;
+            opacity: 0.8;
+        }
+        .hearts div:before, .hearts div:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ff6f61;
+            border-radius: 50%;
+        }
+        .hearts div:before {
+            top: -50%;
+            left: 0;
+        }
+        .hearts div:after {
+            top: 0;
+            left: -50%;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">
+        <div style="left: 20%; animation-duration: 7s;"></div>
+        <div style="left: 40%; animation-duration: 5s;"></div>
+        <div style="left: 60%; animation-duration: 6s;"></div>
+        <div style="left: 80%; animation-duration: 4s;"></div>
+        <div style="left: 30%; animation-duration: 6s;"></div>
+        <div style="left: 50%; animation-duration: 8s;"></div>
+        <div style="left: 70%; animation-duration: 4s;"></div>
+    </div>
+
+    <div class="container" id="questionContainer">
+        <h1><span class="heart">❤️</span> Will You Go on a Date with Me? <span class="heart">❤️</span></h1>
+        <button onclick="showNextQuestion()">Yes</button>
+        <button onclick="showFinalMessage('Maybe next time! ❤️')">No</button>
+    </div>
+
+    <div class="container hidden" id="nextQuestion">
+        <h2>What Kind of Date?</h2>
+        <button onclick="showTimeAndDate('Dinner')">Dinner</button>
+        <button onclick="showTimeAndDate('Movie')">Movie</button>
+        <button onclick="showTimeAndDate('Picnic')">Picnic</button>
+    </div>
+
+    <div class="container hidden" id="timeAndDate">
+        <h2>When Are You Free?</h2>
+        <input type="date" id="date">
+        <input type="time" id="time">
+        <button onclick="showSummary()">Submit</button>
+    </div>
+
+    <div class="container hidden" id="summary">
+        <h2>Your Date Details</h2>
+        <p id="chosenDateIdea" class="date-details"></p>
+        <p id="chosenDateTime" class="date-details"></p>
+    </div>
+
+    <script>
+        function showNextQuestion() {
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('nextQuestion').classList.remove('hidden');
+        }
+
+        function showTimeAndDate(dateIdea) {
+            document.getElementById('nextQuestion').classList.add('hidden');
+            document.getElementById('timeAndDate').classList.remove('hidden');
+            document.getElementById('chosenDateIdea').innerText = 'Date Idea: ' + dateIdea;
+        }
+
+        function showSummary() {
+            var date = document.getElementById('date').value;
+            var time = document.getElementById('time').value;
+            document.getElementById('timeAndDate').classList.add('hidden');
+            document.getElementById('summary').classList.remove('hidden');
+            document.getElementById('chosenDateTime').innerText = 'Date and Time: ' + date + ' at ' + time;
+        }
+
+        function showFinalMessage(message) {
+            document.body.innerHTML = '<h1>' + message + '</h1>';
+        }
+    </script>
+</body>
+</html>
